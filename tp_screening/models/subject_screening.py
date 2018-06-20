@@ -49,7 +49,7 @@ class SubjectIdentifierModelMixin(NonUniqueSubjectIdentifierModelMixin,
 
 class SubjectScreening(SubjectIdentifierModelMixin, SiteModelMixin, BaseUuidModel):
 
-    eligibility_cls = SubjectScreeningEligibility
+    #eligibility_cls = SubjectScreeningEligibility
 
     identifier_cls = ScreeningIdentifier
 

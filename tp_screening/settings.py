@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'edc_identifier.apps.AppConfig',
     'edc_device.apps.AppConfig',
     'tp_screening.apps.AppConfig',
+    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
