@@ -7,7 +7,7 @@ from django.test import TestCase, tag
 from ..literacy_evaluator import LiteracyEvaluator
 
 
-class LiteracyEvaluator(TestCase):
+class TestLiteracyEvaluator(TestCase):
 
     '''
     Participant is eligible if and only if they are literate
