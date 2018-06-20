@@ -18,3 +18,7 @@ class LiteracyEvaluator:
             self.eligible = True
         elif not literate and witness_present:
             self.eligible = True
+
+        if not self.eligible:
+            if not witness_present:
+                self.reasons_ineligible = 'Participant is illiterate and witness is absent'
