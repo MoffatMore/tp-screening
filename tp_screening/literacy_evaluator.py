@@ -14,3 +14,7 @@ class LiteracyEvaluator:
     def __init__(self, literate=None, witness_present=False):
         self.eligible = None
         self.reasons_ineligible = None
+        if literate:
+            self.eligible = True
+        elif not literate and witness_present:
+            self.eligible = True

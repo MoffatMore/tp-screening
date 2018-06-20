@@ -16,3 +16,5 @@ class TestLiteracyEvaluator(TestCase):
     def test_participant_literate(self):
         literacy_evaluator = LiteracyEvaluator(literate=True)
         self.assertTrue(literacy_evaluator.eligible)
+        literacy_evaluator = LiteracyEvaluator(witness_present=True)
+        self.assertTrue(literacy_evaluator, True)
