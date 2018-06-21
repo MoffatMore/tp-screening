@@ -15,7 +15,9 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_NAME = 'tp_screening'
-
+ETC_DIR = os.path.join(BASE_DIR, 'etc')
+SITE_ID = 40
+REVIEWER_SITE_ID = 0
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -35,11 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'edc_identifier.apps.AppConfig',
     'edc_device.apps.AppConfig',
     'tp_screening.apps.AppConfig',
-    'django.contrib.sites',
+
 ]
 
 MIDDLEWARE = [

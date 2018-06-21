@@ -50,7 +50,11 @@ class SubjectScreening(SubjectIdentifierModelMixin, SiteModelMixin, BaseUuidMode
     eligibility_cls = SubjectScreeningEligibility
 
     identifier_cls = ScreeningIdentifier
-
+    reference = models.UUIDField(
+        verbose_name='Reference',
+        unique=True,
+        default=uuid4,
+        editable=False)
     screening_identifier = models.CharField(
         verbose_name='Screening ID',
         max_length=50,
@@ -67,21 +71,29 @@ class SubjectScreening(SubjectIdentifierModelMixin, SiteModelMixin, BaseUuidMode
         choices=GENDER,
         max_length=10)
 
-    age_in_years = models.IntegerField()
+    age_in_years = models.PositiveIntegerField()
+
+    guardian_present = models.CharField(
+        max_length=10,
+        choices=YES_NO_NA)
 
     citizen = models.CharField(
         max_length=10,
-        choices=YES_NO_NA)
+        choices=YES_NO)
 
     married_to_citizen = models.CharField(
         max_length=5,
         choices=YES_NO_NA)
 
-    documents_present = models.CharField(
+    marriage_certificate_present = models.CharField(
         max_length=5,
-        choices=YES_NO)
+        choices=YES_NO_NA)
 
     literate = models.CharField(
+        max_length=10,
+        choices=YES_NO)
+
+    literate_witness_present = models.CharField(
         max_length=10,
         choices=YES_NO_NA)
 
@@ -115,13 +127,13 @@ class SubjectScreening(SubjectIdentifierModelMixin, SiteModelMixin, BaseUuidMode
         return f'{self.screening_identifier} {self.gender} {self.age_in_years}'
 
     def save(self, *args, **kwargs):
-        eligibility_obj = self.eligibility_cls(model_obj=self, allow_none=True)
+        eligibility_obj = self.eligibility_cls(model_obj=self)
         self.eligible = eligibility_obj.eligible
         if not self.eligible:
             reasons_ineligible = [
                 v for v in eligibility_obj.reasons_ineligible.values() if v]
             reasons_ineligible.sort()
-            self.reasons_ineligible = ','.join(reasons_ineligible)
+            self.reasons_ineligible = ', '.join(reasons_ineligible)
         else:
             self.reasons_ineligible = None
         if not self.id:

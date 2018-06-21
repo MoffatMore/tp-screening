@@ -6,7 +6,6 @@ Created on Jun 18, 2018
 
 
 from edc_constants.constants import YES, NO
-from .age_evaluator import AgeEvaluator
 from .citizenship_evaluator import CitizenEvaluator
 from .literacy_evaluator import LiteracyEvaluator
 from .age_evaluator import age_evaluator
@@ -37,17 +36,17 @@ class Eligibility:
     age_evaluator = age_evaluator
 
     def __init__(self, age_in_years=None, guardian_present=None, citizen=None,
-                 married_to_citizen=None, documents_present=None,
-                 literate=None, witness_present=None):
+                 married_to_citizen=None, marriage_certificate_present=None,
+                 literate=None, literate_witness_present=None):
 
         self.criteria = {}
         self.citizen_evaluator = self.citizen_evaluator_cls(
             citizen=citizen, married_to_citizen=married_to_citizen,
-            documents_present=documents_present)
+            documents_present=marriage_certificate_present)
 
         self.literacy_evaluator = self.literacy_evaluator_cls(
             literate=literate,
-            witness_present=witness_present)
+            witness_present=literate_witness_present)
 
         self.criteria.update(minor=self.age_evaluator.age_eligible(
             age_in_years=age_in_years, guardian_present=guardian_present))

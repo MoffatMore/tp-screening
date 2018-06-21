@@ -4,7 +4,7 @@ Created on Jun 21, 2018
 @author: moffat
 '''
 from django.db import models
-from edc_base.sites import CurrentSiteManager, SiteModelMixin
+from edc_base.sites import SiteModelMixin
 
 from django.utils import timezone
 

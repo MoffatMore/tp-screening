@@ -30,6 +30,9 @@ class TestCitizenShip(TestCase):
             citizen = CitizenEvaluator(citizen=True, married_to_citizen=True,
                                        documents_present=True)
             self.assertTrue(citizen.eligible)
+            citizen = CitizenEvaluator(citizen=True, married_to_citizen=False,
+                                       documents_present=False)
+            self.assertTrue(citizen.eligible)
             citizen = CitizenEvaluator(citizen=False, married_to_citizen=True,
                                        documents_present=True)
             self.assertTrue(citizen.eligible)
