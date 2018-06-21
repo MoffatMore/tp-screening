@@ -5,21 +5,19 @@ Created on Jun 15, 2018
 '''
 
 import re
-
-from dateutil.relativedelta import relativedelta
 from django.db import models
 from edc_base.model_managers import HistoricalRecords
 from edc_base.model_mixins import BaseUuidModel
 from edc_base.sites import CurrentSiteManager, SiteModelMixin
 from edc_base.utils import get_utcnow
-from edc_constants.choices import GENDER, YES_NO, YES_NO_NA, NORMAL_ABNORMAL
+from edc_constants.choices import GENDER, YES_NO, YES_NO_NA
 from edc_constants.constants import UUID_PATTERN
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierModelMixin
-from edc_reportable import IU_LITER, TEN_X_9_PER_LITER
 from edc_search.model_mixins import SearchSlugManager, SearchSlugModelMixin
 from uuid import uuid4
-
+from dateutil.relativedelta import relativedelta
 from ..screening_identifier import ScreeningIdentifier
+from ..subject_screening_eligibility import SubjectScreeningEligibility
 
 
 class SubjectScreeningManager(SearchSlugManager, models.Manager):
@@ -49,15 +47,9 @@ class SubjectIdentifierModelMixin(NonUniqueSubjectIdentifierModelMixin,
 
 class SubjectScreening(SubjectIdentifierModelMixin, SiteModelMixin, BaseUuidModel):
 
-    #eligibility_cls = SubjectScreeningEligibility
+    eligibility_cls = SubjectScreeningEligibility
 
     identifier_cls = ScreeningIdentifier
-
-    reference = models.UUIDField(
-        verbose_name='Reference',
-        unique=True,
-        default=uuid4,
-        editable=False)
 
     screening_identifier = models.CharField(
         verbose_name='Screening ID',
@@ -77,16 +69,27 @@ class SubjectScreening(SubjectIdentifierModelMixin, SiteModelMixin, BaseUuidMode
 
     age_in_years = models.IntegerField()
 
-    mental_status = models.CharField(
-        verbose_name='Mental status',
+    citizen = models.CharField(
         max_length=10,
-        choices=NORMAL_ABNORMAL)
+        choices=YES_NO_NA)
+
+    married_to_citizen = models.CharField(
+        max_length=5,
+        choices=YES_NO_NA)
+
+    documents_present = models.CharField(
+        max_length=5,
+        choices=YES_NO)
+
+    literate = models.CharField(
+        max_length=10,
+        choices=YES_NO_NA)
 
     consent_ability = models.CharField(
         verbose_name='Participant or legal guardian/representative able and '
                      'willing to give informed consent.',
         max_length=5,
-        choices=YES_NO)
+        choices=YES_NO_NA)
 
     eligible = models.BooleanField(
         default=False,

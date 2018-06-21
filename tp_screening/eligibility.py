@@ -41,9 +41,6 @@ class Eligibility:
                  literate=None, witness_present=None):
 
         self.criteria = {}
-#         if len(self.criteria) == 0:
-#                     raise EligibilityError('No criteria provided.')
-
         self.citizen_evaluator = self.citizen_evaluator_cls(
             citizen=citizen, married_to_citizen=married_to_citizen,
             documents_present=documents_present)
@@ -53,11 +50,10 @@ class Eligibility:
             witness_present=witness_present)
 
         self.criteria.update(minor=self.age_evaluator.age_eligible(
-            age_in_years=age_in_years, guardian_present=guardian_present))# i.e. Whether subject is not a minor.
+            age_in_years=age_in_years, guardian_present=guardian_present))
         self.criteria.update(citizen=self.citizen_evaluator.eligible)
         self.criteria.update(literate=self.literacy_evaluator.eligible)
 
-        # Eligible if all criteria are true (or all empty by default)
         self.eligible = all([v for v in self.criteria.values()])
 
         if self.eligible:
