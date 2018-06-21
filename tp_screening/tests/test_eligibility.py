@@ -21,9 +21,9 @@ class TestEligibility(TestCase):
             guardian_present=True,
             citizen=True,
             married_to_citizen=True,
-            documents_present=True,
+            marriage_certificate_present=True,
             literate=True,
-            witness_present=True)
+            literate_witness_present=True)
 
         self.criteria = dict()
 
@@ -35,11 +35,10 @@ class TestEligibility(TestCase):
     @tag('test_eligible')
     def test_eligible(self):
         criteria = copy(self.evaluator_criteria)
-        criteria.update({'documents_present': False})
-        criteria.update({'witness_present': False})
+        criteria.update({'marriage_certificate_present': False})
+        criteria.update({'literate_witness_present': False})
         obj = Eligibility(**criteria)
-        self.assertFalse(obj.eligible)
-        self.assertIn('literate', obj.reasons_ineligible)
+        self.assertTrue(obj.eligible)
 
     def test_eligibility_not_ok_by_age(self):
         self.evaluator_criteria.update(age_in_years=17)
@@ -51,7 +50,7 @@ class TestEligibility(TestCase):
     def test_not_eligible(self):
         criteria = copy(self.evaluator_criteria)
         criteria.update({'literate': False})
-        criteria.update({'witness_present': False})
+        criteria.update({'literate_witness_present': False})
         obj = Eligibility(**criteria)
         self.assertFalse(obj.eligible)
         self.assertIn('literate', obj.reasons_ineligible)
