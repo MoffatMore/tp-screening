@@ -37,18 +37,20 @@ class Eligibility:
     age_evaluator = age_evaluator
 
     def __init__(self, age_in_years=None, guardian_present=None, citizen=None,
-                 married_to_citizen=None, marriage_certificate_present=None,
-                 literate=None, literate_witness_present=None):
+                 married_to_citizen=None, documents_present=None,
+                 literate=None, witness_present=None):
 
         self.criteria = {}
+#         if len(self.criteria) == 0:
+#                     raise EligibilityError('No criteria provided.')
 
         self.citizen_evaluator = self.citizen_evaluator_cls(
             citizen=citizen, married_to_citizen=married_to_citizen,
-            documents_present=marriage_certificate_present)
+            documents_present=documents_present)
 
         self.literacy_evaluator = self.literacy_evaluator_cls(
             literate=literate,
-            witness_present=literate_witness_present)
+            witness_present=witness_present)
 
         self.criteria.update(minor=self.age_evaluator.age_eligible(
             age_in_years=age_in_years, guardian_present=guardian_present))# i.e. Whether subject is not a minor.
@@ -74,15 +76,15 @@ class Eligibility:
             if not self.age_evaluator.age_eligible(age_in_years=age_in_years,
                                                    guardian_present=guardian_present):
                 self.reasons_ineligible.update(
-                    minor=f"""{' and '.join(self.age_evaluator.reasons_ineligible)}.""")
+                    minor=self.age_evaluator.reasons_ineligible)
 
             if not self.citizen_evaluator.eligible:
                 self.reasons_ineligible.update(
-                    citizen=f"""{' and '.join(self.citizen_evaluator.reasons_ineligible)}.""")
+                    citizen=self.citizen_evaluator.reasons_ineligible)
 
             if not self.literacy_evaluator.eligible:
                 self.reasons_ineligible.update(
-                    literate=f"""{' and '.join(self.literacy_evaluator.reasons_ineligible)}.""")
+                    literate=self.literacy_evaluator.reasons_ineligible)
 
     def __str__(self):
         return self.eligible

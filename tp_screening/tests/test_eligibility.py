@@ -6,9 +6,10 @@ Created on Jun 18, 2018
 from edc_base.utils import get_utcnow
 from ..eligibility import Eligibility, EligibilityError
 from django.test import TestCase, tag
-import copy
+from copy import copy
 
 
+@tag('eligibility')
 class TestEligibility(TestCase):
     '''
     classdocs
@@ -22,13 +23,9 @@ class TestEligibility(TestCase):
             married_to_citizen=True,
             documents_present=True,
             literate=True,
-            witness_available=True)
+            witness_present=True)
 
         self.criteria = dict()
-
-    @tag('without_criteria')
-    def test_eligibility_without_criteria(self):
-        self.assertRaises(TypeError, Eligibility)
 
     def test_eligibility_with_criteria(self):
         eligibility = Eligibility(**self.evaluator_criteria)
@@ -40,15 +37,12 @@ class TestEligibility(TestCase):
         self.evaluator_criteria.update(guardian_present=False)
         eligibility = Eligibility(**self.evaluator_criteria)
         self.assertFalse(eligibility.eligible)
-        self.assertEqual(
-            eligibility.reasons_ineligible, {'minor':
-                                     'The subject is a minor and '
-                                     'No legal guardian available.'})
 
+    @tag('test_not_eligible')
     def test_not_eligible(self):
         criteria = copy(self.evaluator_criteria)
         criteria.update({'literate': False})
-        criteria.update({'literate_witness_available': False})
+        criteria.update({'witness_present': False})
         obj = Eligibility(**criteria)
         self.assertFalse(obj.eligible)
         self.assertIn('literate', obj.reasons_ineligible)
