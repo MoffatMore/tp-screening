@@ -3,6 +3,7 @@ build:
         before:
             - pip install coverage
             - pip install django
+            - pip install -r requirements.txt
             - python manage.py makemigrations
             - python manage.py migrate
             - mysql -e 'create database edc character set utf8;'
