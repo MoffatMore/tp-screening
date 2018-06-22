@@ -2,6 +2,7 @@ build:
     dependencies:
         before:
             - pip install coverage
+            - pip install django
             - python manage.py makemigrations
             - python manage.py migrate
             - mysql -e 'create database edc character set utf8;'
