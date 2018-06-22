@@ -1,4 +1,4 @@
-from .subject_screening_validator import SubjectScreeningFormValidator
+from ..form_validator import SubjectScreeningFormValidator
 from django import forms
 from edc_form_validators import FormValidatorMixin
 

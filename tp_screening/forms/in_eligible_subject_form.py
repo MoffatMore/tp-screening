@@ -5,7 +5,7 @@ Created on Jun 21, 2018
 '''
 from django import forms
 from edc_form_validators import FormValidatorMixin
-from .in_eligible_subject_form_validator import IneligibleSubjectFormValidator
+from tp_screening.form_validator.in_eligible_subject_form_validator import IneligibleSubjectFormValidator
 
 from ..models.in_eligible_subject import IneligibleSubject
 

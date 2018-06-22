@@ -1,0 +1,30 @@
+build:
+    dependencies:
+        before:
+            - pip install abc
+             flake8 tp-screening
+            - python manage.py makemigrations
+            - python manage.py migrate
+            - mysql -e 'create database edc character set utf8;'
+    environment:
+        python: stackless-3.3.5
+
+    tests:
+        override:
+            -
+                command: './run-tests.sh'
+                coverage:
+                    file: '.coverage'
+                    config_file: '.coveragerc'
+                    format: 'py-cc'
+    deployment:
+        -
+            branch: develop          # you can use either the full branch name,
+            branch: feature_*       # an asterisc for e.g. any feature branches
+            branch: /feature_.*/    # or the same as a regular expression
+            commands:
+                - cd deploy && fab deploy
+    checks:
+    python:
+        code_rating: true
+        duplicate_code: true
