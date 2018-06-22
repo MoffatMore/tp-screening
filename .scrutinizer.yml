@@ -25,6 +25,6 @@ build:
             commands:
                 - cd deploy && fab deploy
     checks:
-    python:
-        code_rating: true
-        duplicate_code: true
+      python:
+          code_rating: true
+          duplicate_code: true
