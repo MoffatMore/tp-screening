@@ -7,7 +7,7 @@ build:
             - python manage.py migrate
             - mysql -e 'create database edc character set utf8;'
     environment:
-        python: stackless-3.6.0
+        python: 3.6.0
 
     tests:
         override:
