@@ -1,7 +1,7 @@
 build:
     dependencies:
         before:
-            - pip install abc
+            - pip install coverage
             - flake8 tp-screening
             - python manage.py makemigrations
             - python manage.py migrate
@@ -28,3 +28,6 @@ checks:
   python:
       code_rating: true
       duplicate_code: true
+
+filter:
+    paths: ["pyof/*", "tests/*"]
