@@ -2,7 +2,6 @@ build:
     dependencies:
         before:
             - pip install coverage
-            - flake8 tp-screening
             - python manage.py makemigrations
             - python manage.py migrate
             - mysql -e 'create database edc character set utf8;'
