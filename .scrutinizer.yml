@@ -24,7 +24,7 @@ build:
             branch: /feature_.*/    # or the same as a regular expression
             commands:
                 - cd deploy && fab deploy
-    checks:
-      python:
-          code_rating: true
-          duplicate_code: true
+checks:
+  python:
+      code_rating: true
+      duplicate_code: true
