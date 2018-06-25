@@ -128,4 +128,26 @@ class TestSubjectScreeningFormValidator(TestCase):
             YES, field='married_to_citizen',
             field_applicable='marriage_proof')
 
+    def test_not_married_to_citizen_no_certificate(self):
+        self.subject_details['citizen'] = NO
+        self.subject_details['married_to_citizen'] = NOT_APPLICABLE
+        form_validator = SubjectScreeningFormValidator(
+            cleaned_data=self.subject_details)
+        self.assertRaises(ValidationError, form_validator.validate)
+
+    def test_not_literate_no_witness(self):
+        self.subject_details['literate'] = NO
+        self.subject_details['literate_witness_present'] = NOT_APPLICABLE
+        form_validator = SubjectScreeningFormValidator(
+            cleaned_data=self.subject_details)
+        self.assertRaises(ValidationError, form_validator.validate)
+
+    def test_minor_no_guardian(self):
+        self.subject_details['age_in_years'] = 18
+        self.subject_details['guardian_present'] = YES
+        form_validator = SubjectScreeningFormValidator(
+            cleaned_data=self.subject_details)
+        self.assertRaises(ValidationError, form_validator.validate)
+
+
 

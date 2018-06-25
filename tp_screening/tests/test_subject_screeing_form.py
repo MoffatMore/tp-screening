@@ -31,5 +31,4 @@ class TestSubjectScreeningForm(TestCase):
             consented=YES,
             reasons_ineligible={'None'})
         subject_form = SubjectScreeningForm(data=form)
-#         self.assertTrue(subject_form.is_valid())
 
