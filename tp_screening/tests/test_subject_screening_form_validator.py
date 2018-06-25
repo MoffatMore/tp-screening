@@ -85,4 +85,47 @@ class TestSubjectScreeningFormValidator(TestCase):
             YES, field='citizen',
             field_applicable='married_to_citizen')
 
+    def test_literate_witness_not_applicable_ok(self):
+        current_details = copy(self.subject_details)
+        current_details['literate'] = YES
+        current_details['literate_witness_present'] = NO
+        validator = SubjectScreeningFormValidator(cleaned_data=current_details)
+        self.assertRaises(
+            ValidationError,
+            validator.not_applicable_if,
+            YES, field='literate',
+            field_applicable='literate_witness_present')
+        pass
+
+    def test_literate_witness_applicable_ok(self):
+        current_details = copy(self.subject_details)
+        current_details['literate'] = NO
+        current_details['literate_witness_present'] = NOT_APPLICABLE
+        validator = SubjectScreeningFormValidator(cleaned_data=current_details)
+        self.assertRaises(
+            ValidationError,
+            validator.applicable_if,
+            NO, field='literate',
+            field_applicable='literate_witness_present')
+
+    def test_marriage_proof_not_applicable_ok(self):
+        current_details = copy(self.subject_details)
+        current_details['married_to_citizen'] = NO
+        validator = SubjectScreeningFormValidator(cleaned_data=current_details)
+        self.assertRaises(
+            ValidationError,
+            validator.not_applicable_if,
+            YES, field='married_to_citizen',
+            field_applicable='marriage_proof')
+
+    def test_marriage_proof_applicable_ok(self):
+        current_details = copy(self.subject_details)
+        current_details['married_to_citizen'] = YES
+        validator = SubjectScreeningFormValidator(cleaned_data=current_details)
+        self.assertRaises(
+            ValidationError,
+            validator.applicable_if,
+            YES, field='married_to_citizen',
+            field_applicable='marriage_proof')
+
 
