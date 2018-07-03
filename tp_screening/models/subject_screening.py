@@ -42,14 +42,16 @@ class SubjectIdentifierModelMixin(NonUniqueSubjectIdentifierModelMixin,
         return self.subject_identifier_as_pk.hex
 
     class Meta:
-        abstract = True
+        abstract = True 
 
 
-class SubjectScreening(SubjectIdentifierModelMixin, SiteModelMixin, BaseUuidModel):
+class SubjectScreening(SubjectIdentifierModelMixin,
+                       SiteModelMixin, BaseUuidModel):
 
     eligibility_cls = SubjectScreeningEligibility
 
     identifier_cls = ScreeningIdentifier
+
     reference = models.UUIDField(
         verbose_name='Reference',
         unique=True,
