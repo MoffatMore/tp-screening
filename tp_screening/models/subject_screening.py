@@ -45,8 +45,7 @@ class SubjectIdentifierModelMixin(NonUniqueSubjectIdentifierModelMixin,
         abstract = True 
 
 
-class SubjectScreening(SubjectIdentifierModelMixin,
-                       SiteModelMixin, BaseUuidModel):
+class SubjectScreening(SubjectIdentifierModelMixin, BaseUuidModel):
 
     eligibility_cls = SubjectScreeningEligibility
 
