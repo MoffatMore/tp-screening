@@ -79,13 +79,7 @@ class SubjectScreening(SubjectIdentifierModelMixin,
     guardian_present = models.CharField(
         max_length=10,
         choices=YES_NO_NA)
-    
-    mental_status = models.CharField(
-        verbose_name='Mental status',
-        max_length=10,
-        default=Normal,
-        choices=NORMAL_ABNORMAL)
-    
+
     citizen = models.CharField(
         max_length=10,
         choices=YES_NO)
