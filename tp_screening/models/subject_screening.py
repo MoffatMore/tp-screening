@@ -18,6 +18,7 @@ from uuid import uuid4
 from dateutil.relativedelta import relativedelta
 from ..screening_identifier import ScreeningIdentifier
 from ..subject_screening_eligibility import SubjectScreeningEligibility
+from edc_reportable.value_reference_group import Normal
 
 
 class SubjectScreeningManager(SearchSlugManager, models.Manager):
@@ -82,6 +83,7 @@ class SubjectScreening(SubjectIdentifierModelMixin,
     mental_status = models.CharField(
         verbose_name='Mental status',
         max_length=10,
+        default=Normal,
         choices=NORMAL_ABNORMAL)
     
     citizen = models.CharField(
