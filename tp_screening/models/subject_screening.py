@@ -10,7 +10,7 @@ from edc_base.model_managers import HistoricalRecords
 from edc_base.model_mixins import BaseUuidModel
 from edc_base.sites import CurrentSiteManager, SiteModelMixin
 from edc_base.utils import get_utcnow
-from edc_constants.choices import GENDER, YES_NO, YES_NO_NA
+from edc_constants.choices import GENDER, YES_NO, YES_NO_NA,NORMAL_ABNORMAL
 from edc_constants.constants import UUID_PATTERN
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierModelMixin
 from edc_search.model_mixins import SearchSlugManager, SearchSlugModelMixin
@@ -78,7 +78,12 @@ class SubjectScreening(SubjectIdentifierModelMixin,
     guardian_present = models.CharField(
         max_length=10,
         choices=YES_NO_NA)
-
+    
+    mental_status = models.CharField(
+        verbose_name='Mental status',
+        max_length=10,
+        choices=NORMAL_ABNORMAL)
+    
     citizen = models.CharField(
         max_length=10,
         choices=YES_NO)
