@@ -28,7 +28,7 @@ SECRET_KEY = 'sbha9b794meeebsivm0l1$7j1e#s&7(zk)^jsu69l0u%nv6nku'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+HOLIDAY_FILE = os.path.join(BASE_DIR, 'holidays.csv')
 # Application definition
 
 INSTALLED_APPS = [

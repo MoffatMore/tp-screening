@@ -22,6 +22,6 @@ class CitizenEvaluator:
 
         if not self.eligible:
             if not married_to_citizen:
-                self.reasons_ineligible = 'Subject not married to citizen'
+                self.reasons_ineligible = 'Participant is not a citizen and is not married to citizen'
             elif married_to_citizen and not documents_present:
-                self.reasons_ineligible = 'No proof of marriage certificate'
+                self.reasons_ineligible = 'Participant has no proof of marriage certificate'
